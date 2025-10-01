@@ -32,7 +32,7 @@ export function BookingDialog({ children }: BookingDialogProps) {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.phone || !date || !formData.time) {
@@ -40,15 +40,36 @@ export function BookingDialog({ children }: BookingDialogProps) {
       return;
     }
 
-    // Here you would typically send the data to your backend
-    console.log("Booking submitted:", { ...formData, date });
-    
-    toast.success("Appointment request received! We'll contact you soon.");
-    setOpen(false);
-    
-    // Reset form
-    setFormData({ name: "", email: "", phone: "", time: "", message: "" });
-    setDate(undefined);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-booking-email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            ...formData,
+            date: date?.toISOString(),
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to send booking request");
+      }
+
+      toast.success("Appointment request sent! We'll contact you within 24 hours.");
+      setOpen(false);
+      
+      // Reset form
+      setFormData({ name: "", email: "", phone: "", time: "", message: "" });
+      setDate(undefined);
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+      toast.error("Failed to submit appointment request. Please try again.");
+    }
   };
 
   return (
