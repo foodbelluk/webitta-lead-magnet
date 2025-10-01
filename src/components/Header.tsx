@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { BookingDialog } from "@/components/BookingDialog";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import logo from "@/assets/logo.png";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,11 +21,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold">
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Webitta
-              </span>
-            </h1>
+            <img src={logo} alt="Webitta Logo" className="h-8" />
           </div>
 
           {/* Desktop Navigation */}

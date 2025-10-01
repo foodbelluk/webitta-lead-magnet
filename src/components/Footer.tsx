@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { BookingDialog } from "@/components/BookingDialog";
 import { Mail, Phone, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export function Footer() {
   return (
@@ -9,11 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Webitta
-              </span>
-            </h3>
+            <img src={logo} alt="Webitta Logo" className="h-10" />
             <p className="text-sm text-muted-foreground">
               Creating stunning, high-performance websites that drive business growth.
             </p>
