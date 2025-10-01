@@ -63,7 +63,16 @@ export function HeroSection() {
               </Button>
             </BookingDialog>
             
-            <Button variant="ctaOutline" size="xl">
+            <Button 
+              variant="ctaOutline" 
+              size="xl"
+              onClick={() => {
+                const element = document.getElementById("portfolio");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
               View Our Work
             </Button>
           </div>
